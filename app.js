@@ -1,17 +1,3 @@
-[![Build Status](https://travis-ci.org/ItsAsbreuk/COMPONENT_NAME.svg?branch=master)](https://travis-ci.org/ItsAsbreuk/COMPONENT_NAME)
-
-React Form which renders a focussable form based upon elements declared by `props.items`
-
-##Advantage of using itsa-react-form
-
-* You can define a form based upon an object (props.items)
-* Has a focusmanager
-* Up to 4 columns even for separate rows
-* Responsive by using purecss classes
-
-## Example:
-
-```js
 "use strict";
 
 import "purecss";
@@ -28,7 +14,7 @@ import "purecss/build/grids-responsive-min.css";
 
 const React = require("react"),
     ReactDOM = require("react-dom"),
-    Form = require("itsa-react-form"),
+    Form = require("./lib/component.jsx"),
     Button = require("itsa-react-button"),
     Input = require("itsa-react-input"),
     MaskedInput = require("itsa-react-maskedinput"),
@@ -404,4 +390,3 @@ const renderForm = props => {
  *******************************************************/
 validateProps(props);
 renderForm(props);
-```
