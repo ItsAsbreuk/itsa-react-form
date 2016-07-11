@@ -412,7 +412,7 @@ const Form = React.createClass({
     createFormElement(item, i, inlineDiv) {
         let label = item.label,
             classname = 'itsa-formelement-'+ (item.props.name || 'undefined-name'),
-            childrenArray, innerHTML, component, Component, style;
+            childrenArray, innerHTML, component, Component, style, key;
         const thisProps = this.props,
             contextItemFns = thisProps.contextItemFns,
             itemComponent = item.component,
@@ -458,8 +458,9 @@ const Form = React.createClass({
         else {
             classname += ' pure-control-group';
         }
+        key = (item.key!==undefined) ? item.key : i;
         return (
-            <div className={classname} dangerouslySetInnerHTML={innerHTML} key={i} style={style}>
+            <div className={classname} dangerouslySetInnerHTML={innerHTML} key={key} style={style}>
                 {label}
                 {component}
             </div>
