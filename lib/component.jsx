@@ -91,10 +91,10 @@ const Form = React.createClass({
          * The Component its children
          *
          * @property children
-         * @type Object || Array
+         * @type String || Object || Array
          * @since 15.0.0
         */
-        children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+        children: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.array]),
 
         /**
          * The classname for the container
@@ -423,7 +423,7 @@ const Form = React.createClass({
             itemInnerHTML = item.innerHTML;
         delete props.innerText;
         delete props.children;
-        props.disabled = thisProps.disabled;
+        (typeof props.disabled==='boolean') || (props.disabled=thisProps.disabled);
         if (label!==undefined) {
             label = <label className={item.labelClass} htmlFor={props.name}>{label}</label>;
         }
