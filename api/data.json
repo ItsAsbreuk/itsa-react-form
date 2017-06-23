@@ -31,9 +31,9 @@
             "tag": "module",
             "file": "lib/component.jsx",
             "line": 1,
-            "description": "React-component: Form, which renders a focussable form based upon\nelements declared by `props.items`\n\nThe generated forms have `purecss` styles (see http://purecss.io), but you still need to load purecss\nyourself to get these styles activated.\n\n<i>Copyright (c) 2016 AcceleTrial - https://acceletrial.com</i><br>\nProprietary License\n\nUsing native elements:\nYou can use native elements by specifying a \"String\" to `component`.\nSome native elements can use innerHTML, innerText or children, by setting the property: `innerHTML`, `innerText` or `children.",
+            "description": "React-component: Form, which renders a focussable form based upon\nelements declared by `props.items`\n\nThe generated forms have `purecss` styles (see http://purecss.io), but you still need to load purecss\nyourself to get these styles activated.\n\n<i>Copyright (c) 2016 AcceleTrial - https://acceletrial.com</i><br>\nProprietary License\n\nUsing native elements:\nYou can use native elements by specifying a \"String\" to `component`.\nSome native elements can use innerHTML, innerText or children, by setting the property: `innerHTML`, `innerText` or `children`.\n\nValid properties are:\n\n* type\n* items\n* label\n* labelClass\n* labelAfterComponent\n* rowClass\n* component\n* props\n* innerHTML\n* innerText\n* children",
             "example": [
-                "\nitems = [\n    {component: 'legend', innerHTML: '<b>Beautiful</b> items'},\n    {component: Input, props: {value: 'Clinton'}, label: \"name\", children: []},\n    [\n        [ // column 1\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ],\n        [ // column 2\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ]\n    ]\n];\n\nA special purpose would be to have multiple items in the same row or inside a fieldset. To achieve this, define the type as\n\"row\", \"control-row\" or \"fieldset\" (String) as well as the property `items`.",
+                "\nitems = [\n    {component: 'legend', innerHTML: '<b>Beautiful</b> items'},\n    {component: Input, props: {value: 'Clinton'}, label: \"name\", children: []},\n    [\n        [ // column 1\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ],\n        [ // column 2\n            {component: Input, props: {value: 'Clinton'}, label: \"name\", labelClass: \"red\"}\n        ]\n    ]\n];\n\nA special purpose would be to have multiple items in the same row or inside a fieldset. To achieve this, define the type as\n\"row\", \"control-row\" or \"fieldset\" (String) as well as the property `items`.",
                 "\nitems = [\n    {component: Input, props: {value: 'Clinton'}, label: \"name\"},\n    [\n        [ // column 1\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ],\n        [ // column 2\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ]\n    ],\n    {\n        type: \"fieldset\",\n        items: [\n            {component: Button, props: {buttonText: 'cancel'}},\n            {component: Button, props: {buttonText: 'save'}}\n        ]\n    },\n    {\n        type: \"row\",\n        items: [\n            {component: Button, props: {buttonText: 'cancel'}},\n            {component: Button, props: {buttonText: 'save'}}\n        ]\n    }\n];"
             ],
             "since": "0.0.1"
@@ -52,9 +52,9 @@
             "namespace": "",
             "file": "lib/component.jsx",
             "line": 1,
-            "description": "React-component: Form, which renders a focussable form based upon\nelements declared by `props.items`\n\nThe generated forms have `purecss` styles (see http://purecss.io), but you still need to load purecss\nyourself to get these styles activated.\n\n<i>Copyright (c) 2016 AcceleTrial - https://acceletrial.com</i><br>\nProprietary License\n\nUsing native elements:\nYou can use native elements by specifying a \"String\" to `component`.\nSome native elements can use innerHTML, innerText or children, by setting the property: `innerHTML`, `innerText` or `children.",
+            "description": "React-component: Form, which renders a focussable form based upon\nelements declared by `props.items`\n\nThe generated forms have `purecss` styles (see http://purecss.io), but you still need to load purecss\nyourself to get these styles activated.\n\n<i>Copyright (c) 2016 AcceleTrial - https://acceletrial.com</i><br>\nProprietary License\n\nUsing native elements:\nYou can use native elements by specifying a \"String\" to `component`.\nSome native elements can use innerHTML, innerText or children, by setting the property: `innerHTML`, `innerText` or `children`.\n\nValid properties are:\n\n* type\n* items\n* label\n* labelClass\n* labelAfterComponent\n* rowClass\n* component\n* props\n* innerHTML\n* innerText\n* children",
             "example": [
-                "\nitems = [\n    {component: 'legend', innerHTML: '<b>Beautiful</b> items'},\n    {component: Input, props: {value: 'Clinton'}, label: \"name\", children: []},\n    [\n        [ // column 1\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ],\n        [ // column 2\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ]\n    ]\n];\n\nA special purpose would be to have multiple items in the same row or inside a fieldset. To achieve this, define the type as\n\"row\", \"control-row\" or \"fieldset\" (String) as well as the property `items`.",
+                "\nitems = [\n    {component: 'legend', innerHTML: '<b>Beautiful</b> items'},\n    {component: Input, props: {value: 'Clinton'}, label: \"name\", children: []},\n    [\n        [ // column 1\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ],\n        [ // column 2\n            {component: Input, props: {value: 'Clinton'}, label: \"name\", labelClass: \"red\"}\n        ]\n    ]\n];\n\nA special purpose would be to have multiple items in the same row or inside a fieldset. To achieve this, define the type as\n\"row\", \"control-row\" or \"fieldset\" (String) as well as the property `items`.",
                 "\nitems = [\n    {component: Input, props: {value: 'Clinton'}, label: \"name\"},\n    [\n        [ // column 1\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ],\n        [ // column 2\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ]\n    ],\n    {\n        type: \"fieldset\",\n        items: [\n            {component: Button, props: {buttonText: 'cancel'}},\n            {component: Button, props: {buttonText: 'save'}}\n        ]\n    },\n    {\n        type: \"row\",\n        items: [\n            {component: Button, props: {buttonText: 'cancel'}},\n            {component: Button, props: {buttonText: 'save'}}\n        ]\n    }\n];"
             ]
         }
@@ -63,239 +63,17 @@
     "classitems": [
         {
             "file": "lib/component.jsx",
-            "line": 76,
-            "description": "The Component its children",
-            "itemtype": "property",
-            "name": "children",
-            "type": "Object || Array",
+            "line": 107,
+            "description": "componentDidMount will set an eventlistener to the `app:passwordresetrequest`-event",
+            "itemtype": "method",
+            "name": "componentDidMount",
             "since": "15.0.0",
             "class": "Form",
             "module": "itsa-react-form"
         },
         {
             "file": "lib/component.jsx",
-            "line": 85,
-            "description": "The classname for the container",
-            "itemtype": "property",
-            "name": "className",
-            "type": "String",
-            "since": "15.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 94,
-            "description": "Whether the focuscontainer is disabled (doesn't response to focusevents)",
-            "itemtype": "property",
-            "name": "disabled",
-            "type": "Boolean",
-            "since": "15.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 103,
-            "description": "Whether a click on the container (outside its elements,\nshould lead into focussing the container",
-            "itemtype": "property",
-            "name": "focusOnContainerClick",
-            "default": "false",
-            "type": "Boolean",
-            "since": "15.0.10",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 114,
-            "description": "A `selector` or `index` of the focussable items that should get the initial focus.\nIn case of a selector, it might return multiple nodes: the one that is being used\nis determined by",
-            "itemtype": "property",
-            "name": "initialFocus",
-            "type": "String|Number",
-            "since": "15.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 125,
-            "description": "In case `initialFocus` is a selector, it might return multiple nodes: the one that is being used.\nIn case of \"last\", it will return the last node.",
-            "itemtype": "property",
-            "name": "initialFocusIndex",
-            "type": "Number|\"last\"",
-            "default": "0",
-            "since": "15.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 136,
-            "description": "The list of the items that should be rendered. Each item consist of an object like this:\n{component: ReactComponent, props: this.props, label: \"mylabel\"},\nwhere the label is optional.\n\nIf an item is an array, then this row will become devided in the number of columns that equal the array-size.\nInside the array, there should be ONLY array-items, defining the content of the column,\n\nUsing native elements:\nYou can use native elements by specifying a \"String\" to `component`.\nSome native elements can use innerHTML, innerText or children, by setting the property: `innerHTML`, `innerText` or `children.",
-            "example": [
-                "\nitems = [\n    {component: 'legend', innerHTML: '<b>Beautiful</b> items'},\n    {component: Input, props: {value: 'Clinton'}, label: \"name\", children: []},\n    [\n        [ // column 1\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ],\n        [ // column 2\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ]\n    ]\n];\n\nA special purpose would be to have multiple items in the same row or inside a fieldset. To achieve this, define the type as\n\"row\", \"control-row\" or \"fieldset\" (String) as well as the property `items`.",
-                "\nitems = [\n    {component: Input, props: {value: 'Clinton'}, label: \"name\"},\n    [\n        [ // column 1\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ],\n        [ // column 2\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ]\n    ],\n    {\n        type: \"fieldset\",\n        items: [\n            {component: Button, props: {buttonText: 'cancel'}},\n            {component: Button, props: {buttonText: 'save'}}\n        ]\n    },\n    {\n        type: \"row\",\n        items: [\n            {component: Button, props: {buttonText: 'cancel'}},\n            {component: Button, props: {buttonText: 'save'}}\n        ]\n    }\n];"
-            ],
-            "itemtype": "property",
-            "name": "items",
-            "type": "Array",
-            "default": "0",
-            "since": "15.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 198,
-            "description": "What key/keys are responsible for re-focussing `down`. Valid values are charcodes possible prepende with\na special key: 9 or `shift+9` or `ctrl+shift+9`. Multiple key combinations can be defined bydefining an array of keyDown-values.",
-            "itemtype": "property",
-            "name": "keyDown",
-            "default": "9",
-            "type": "String|number|Array",
-            "since": "15.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 209,
-            "description": "Whenever `keyEnter` is set, then the focus-container will become a `nested`- focuscontainer.\nNested focuscontainers will automaticcaly become focussable by their parent-container.\n\nThe `keyEnter` determines what key/keys are responsible for `entering` this container. Valid values are charcodes possible prepende with\na special key: 39 or `shift+39` or `ctrl+shift+39`. Multiple key combinations can be defined bydefining an array of keyUp-values.",
-            "itemtype": "property",
-            "name": "keyEnter",
-            "type": "String|number|Array",
-            "since": "15.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 222,
-            "description": "The `keyLeave` determines what key/keys are responsible for `leaving` this container and go to the parent focus-container.\nValid values are charcodes possible prepende with\na special key: 39 or `shift+39` or `ctrl+shift+39`. Multiple key combinations can be defined bydefining an array of keyUp-values.",
-            "itemtype": "property",
-            "name": "keyLeave",
-            "default": "27",
-            "type": "String|number|Array",
-            "since": "15.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 234,
-            "description": "What key/keys are responsible for re-focussing `up`. Valid values are charcodes possible prepended with\na special key: 9 or `shift+9` or `ctrl+shift+9`. Multiple key combinations can be defined bydefining an array of keyUp-values.",
-            "itemtype": "property",
-            "name": "keyUp",
-            "default": "\"shift+9\"",
-            "type": "String|number|Array",
-            "since": "15.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 245,
-            "description": "Whether the loop the focus when the last/first item is reached.",
-            "itemtype": "property",
-            "name": "loop",
-            "default": "true",
-            "type": "Boolean",
-            "since": "15.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 255,
-            "description": "Callback for when the component did mount.",
-            "itemtype": "property",
-            "name": "onMount",
-            "type": "Function",
-            "since": "15.0.8",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 264,
-            "description": "Callback whenever the forms needs to submit (button[type=\"submit\"] gets pressed)",
-            "itemtype": "property",
-            "name": "onClick",
-            "type": "Function",
-            "since": "0.0.1",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 273,
-            "description": "Callback whenever the forms needs to submit (button[type=\"reset\"] gets pressed)",
-            "itemtype": "property",
-            "name": "onClick",
-            "type": "Function",
-            "since": "0.0.1",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 282,
-            "description": "Whether to focus on the next item whenever a `enter` is pressed on an input-element.",
-            "itemtype": "property",
-            "name": "refocusOnEnterInput",
-            "default": "true",
-            "type": "Boolean",
-            "since": "15.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 292,
-            "description": "Selector on which the focusmanager should check against when refocussing",
-            "itemtype": "property",
-            "name": "selector",
-            "type": "String",
-            "since": "15.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 301,
-            "description": "Inline styles for the focus-container",
-            "itemtype": "property",
-            "name": "style",
-            "type": "Object",
-            "since": "15.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 310,
-            "description": "The tabIndex",
-            "itemtype": "property",
-            "name": "tabIndex",
-            "type": "Number",
-            "since": "0.0.1",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 319,
-            "description": "The transition-time when the window needs to be scrolled in order to get the focussable node into the view.",
-            "itemtype": "property",
-            "name": "transitionTime",
-            "type": "Number",
-            "since": "15.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 329,
+            "line": 118,
             "description": "React render-method --> renders the Component.",
             "itemtype": "method",
             "name": "createFormCols",
@@ -308,59 +86,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 353,
-            "description": "React render-method --> renders the Component.",
-            "itemtype": "method",
-            "name": "createFormCols",
-            "return": {
-                "description": "ReactComponents"
-            },
-            "since": "2.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 380,
-            "description": "React render-method --> renders the Component.",
-            "itemtype": "method",
-            "name": "createFormCols",
-            "return": {
-                "description": "ReactComponents"
-            },
-            "since": "2.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 410,
-            "description": "React render-method --> renders the Component.",
-            "itemtype": "method",
-            "name": "createFormCols",
-            "return": {
-                "description": "ReactComponents"
-            },
-            "since": "2.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 470,
-            "description": "React render-method --> renders the Component.",
-            "itemtype": "method",
-            "name": "createFormCols",
-            "return": {
-                "description": "ReactComponents"
-            },
-            "since": "2.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 499,
+            "line": 147,
             "description": "React render-method --> renders the Component.",
             "itemtype": "method",
             "name": "createFormElement",
@@ -373,7 +99,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 547,
+            "line": 223,
             "description": "React render-method --> renders the Component.",
             "itemtype": "method",
             "name": "createFormRow",
@@ -386,7 +112,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 588,
+            "line": 247,
             "description": "React render-method --> renders the Component.",
             "itemtype": "method",
             "name": "createFormRow",
@@ -399,7 +125,36 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 619,
+            "line": 263,
+            "description": "Sets the focus on the active Element of the Form.",
+            "itemtype": "method",
+            "name": "focusActiveElement",
+            "chainable": 1,
+            "since": "0.0.1",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 275,
+            "description": "Sets the focus on the specified Element of the Form.",
+            "itemtype": "method",
+            "name": "focusElement",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "the index of the item to be focussed",
+                    "type": "Number"
+                }
+            ],
+            "chainable": 1,
+            "since": "0.0.1",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 309,
             "description": "React render-method --> renders the Component.",
             "itemtype": "method",
             "name": "render",
@@ -407,6 +162,313 @@
                 "description": "ReactComponents"
             },
             "since": "2.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 337,
+            "description": "React render-method --> renders the Component.",
+            "itemtype": "method",
+            "name": "createFormCols",
+            "return": {
+                "description": "ReactComponents"
+            },
+            "since": "2.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 361,
+            "description": "React render-method --> renders the Component.",
+            "itemtype": "method",
+            "name": "createFormCols",
+            "return": {
+                "description": "ReactComponents"
+            },
+            "since": "2.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 388,
+            "description": "React render-method --> renders the Component.",
+            "itemtype": "method",
+            "name": "createFormCols",
+            "return": {
+                "description": "ReactComponents"
+            },
+            "since": "2.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 418,
+            "description": "React render-method --> renders the Component.",
+            "itemtype": "method",
+            "name": "createFormCols",
+            "return": {
+                "description": "ReactComponents"
+            },
+            "since": "2.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 480,
+            "description": "The Component its children",
+            "itemtype": "property",
+            "name": "children",
+            "type": "String || Object || Array",
+            "since": "15.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 489,
+            "description": "The classname for the container",
+            "itemtype": "property",
+            "name": "className",
+            "type": "String",
+            "since": "15.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 498,
+            "description": "The context for the callback-props of the items.",
+            "itemtype": "property",
+            "name": "contextItemFns",
+            "type": "Object",
+            "since": "15.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 507,
+            "description": "Whether the focuscontainer is disabled (doesn't response to focusevents)",
+            "itemtype": "property",
+            "name": "disabled",
+            "type": "Boolean",
+            "since": "15.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 516,
+            "description": "Whether a click on the container (outside its elements,\nshould lead into focussing the container",
+            "itemtype": "property",
+            "name": "focusOnContainerClick",
+            "default": "false",
+            "type": "Boolean",
+            "since": "15.0.10",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 527,
+            "description": "A `selector` or `index` of the focussable items that should get the initial focus.\nIn case of a selector, it might return multiple nodes: the one that is being used\nis determined by",
+            "itemtype": "property",
+            "name": "initialFocus",
+            "type": "String|Number",
+            "since": "15.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 538,
+            "description": "In case `initialFocus` is a selector, it might return multiple nodes: the one that is being used.\nIn case of \"last\", it will return the last node.",
+            "itemtype": "property",
+            "name": "initialFocusIndex",
+            "type": "Number|\"last\"",
+            "default": "0",
+            "since": "15.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 549,
+            "description": "The list of the items that should be rendered. Each item consist of an object like this:\n{component: ReactComponent, props: this.props, label: \"mylabel\"},\nwhere the label is optional.\n\nIf an item is an array, then this row will become devided in the number of columns that equal the array-size.\nInside the array, there should be ONLY array-items, defining the content of the column,\n\nUsing native elements:\nYou can use native elements by specifying a \"String\" to `component`.\nSome native elements can use innerHTML, innerText or children, by setting the property: `innerHTML`, `innerText` or `children`.\n\nValid properties are:\n\n* type\n* items\n* label\n* labelClass\n* rowClass\n* component\n* props\n* innerHTML\n* innerText\n* children",
+            "example": [
+                "\nitems = [\n    {component: 'legend', innerHTML: '<b>Beautiful</b> items'},\n    {component: Input, props: {value: 'Clinton'}, label: \"name\", children: []},\n    [\n        [ // column 1\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ],\n        [ // column 2\n            {component: Input, props: {value: 'Clinton'}, label: \"name\", labelClass: \"red\"}\n        ]\n    ]\n];\n\nA special purpose would be to have multiple items in the same row or inside a fieldset. To achieve this, define the type as\n\"row\", \"control-row\" or \"fieldset\" (String) as well as the property `items`.",
+                "\nitems = [\n    {component: Input, props: {value: 'Clinton'}, label: \"name\"},\n    [\n        [ // column 1\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ],\n        [ // column 2\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ]\n    ],\n    {\n        type: \"fieldset\",\n        items: [\n            {component: Button, props: {buttonText: 'cancel'}},\n            {component: Button, props: {buttonText: 'save'}}\n        ]\n    },\n    {\n        type: \"row\",\n        items: [\n            {component: Button, props: {buttonText: 'cancel'}},\n            {component: Button, props: {buttonText: 'save'}}\n        ]\n    }\n];"
+            ],
+            "itemtype": "property",
+            "name": "items",
+            "type": "Array",
+            "default": "0",
+            "since": "15.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 624,
+            "description": "What key/keys are responsible for re-focussing `down`. Valid values are charcodes possible prepende with\na special key: 9 or `shift+9` or `ctrl+shift+9`. Multiple key combinations can be defined bydefining an array of keyDown-values.",
+            "itemtype": "property",
+            "name": "keyDown",
+            "default": "9",
+            "type": "String|number|Array",
+            "since": "15.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 635,
+            "description": "Whenever `keyEnter` is set, then the focus-container will become a `nested`- focuscontainer.\nNested focuscontainers will automaticcaly become focussable by their parent-container.\n\nThe `keyEnter` determines what key/keys are responsible for `entering` this container. Valid values are charcodes possible prepende with\na special key: 39 or `shift+39` or `ctrl+shift+39`. Multiple key combinations can be defined bydefining an array of keyUp-values.",
+            "itemtype": "property",
+            "name": "keyEnter",
+            "type": "String|number|Array",
+            "since": "15.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 648,
+            "description": "The `keyLeave` determines what key/keys are responsible for `leaving` this container and go to the parent focus-container.\nValid values are charcodes possible prepende with\na special key: 39 or `shift+39` or `ctrl+shift+39`. Multiple key combinations can be defined bydefining an array of keyUp-values.",
+            "itemtype": "property",
+            "name": "keyLeave",
+            "default": "27",
+            "type": "String|number|Array",
+            "since": "15.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 660,
+            "description": "What key/keys are responsible for re-focussing `up`. Valid values are charcodes possible prepended with\na special key: 9 or `shift+9` or `ctrl+shift+9`. Multiple key combinations can be defined bydefining an array of keyUp-values.",
+            "itemtype": "property",
+            "name": "keyUp",
+            "default": "\"shift+9\"",
+            "type": "String|number|Array",
+            "since": "15.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 671,
+            "description": "Whether the loop the focus when the last/first item is reached.",
+            "itemtype": "property",
+            "name": "loop",
+            "default": "true",
+            "type": "Boolean",
+            "since": "15.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 681,
+            "description": "Callback for when the component did mount.",
+            "itemtype": "property",
+            "name": "onMount",
+            "type": "Function",
+            "since": "15.0.8",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 690,
+            "description": "Callback whenever the forms needs to submit (button[type=\"reset\"] gets pressed)",
+            "itemtype": "property",
+            "name": "onClick",
+            "type": "Function",
+            "since": "0.0.1",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 699,
+            "description": "Callback whenever the forms needs to submit (button[type=\"submit\"] gets pressed)",
+            "itemtype": "property",
+            "name": "onClick",
+            "type": "Function",
+            "since": "0.0.1",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 708,
+            "description": "Whether to focus on the next item whenever a `enter` is pressed on an input-element.",
+            "itemtype": "property",
+            "name": "refocusOnEnterInput",
+            "default": "true",
+            "type": "Boolean",
+            "since": "15.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 718,
+            "description": "Whether the focussed item should be scrolled into the view when the focusselector focuses it.",
+            "itemtype": "property",
+            "name": "scrollIntoView",
+            "default": "true",
+            "type": "String",
+            "since": "15.0.30",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 728,
+            "description": "Selector on which the focusmanager should check against when refocussing",
+            "itemtype": "property",
+            "name": "selector",
+            "type": "String",
+            "since": "15.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 737,
+            "description": "Inline styles for the focus-container",
+            "itemtype": "property",
+            "name": "style",
+            "type": "Object",
+            "since": "15.0.0",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 746,
+            "description": "The tabIndex",
+            "itemtype": "property",
+            "name": "tabIndex",
+            "type": "Number",
+            "since": "0.0.1",
+            "class": "Form",
+            "module": "itsa-react-form"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 755,
+            "description": "The transition-time when the window needs to be scrolled in order to get the focussable node into the view.",
+            "itemtype": "property",
+            "name": "transitionTime",
+            "type": "Number",
+            "since": "15.0.0",
             "class": "Form",
             "module": "itsa-react-form"
         }

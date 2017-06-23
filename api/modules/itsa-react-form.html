@@ -98,7 +98,21 @@ yourself to get these styles activated.</p>
 Proprietary License</p>
 <p>Using native elements:
 You can use native elements by specifying a &quot;String&quot; to <code>component</code>.
-Some native elements can use innerHTML, innerText or children, by setting the property: <code>innerHTML</code>, <code>innerText</code> or `children.</p>
+Some native elements can use innerHTML, innerText or children, by setting the property: <code>innerHTML</code>, <code>innerText</code> or <code>children</code>.</p>
+<p>Valid properties are:</p>
+<ul>
+<li>type</li>
+<li>items</li>
+<li>label</li>
+<li>labelClass</li>
+<li>labelAfterComponent</li>
+<li>rowClass</li>
+<li>component</li>
+<li>props</li>
+<li>innerHTML</li>
+<li>innerText</li>
+<li>children</li>
+</ul>
 
 </div>
 
@@ -113,7 +127,7 @@ Some native elements can use innerHTML, innerText or children, by setting the pr
 {component: Input, props: {value: 'Clinton'}, label: &quot;name&quot;}
 ],
 [ // column 2
-{component: Input, props: {value: 'Clinton'}, label: &quot;name&quot;}
+{component: Input, props: {value: 'Clinton'}, label: &quot;name&quot;, labelClass: &quot;red&quot;}
 ]
 ]
 ];</p>

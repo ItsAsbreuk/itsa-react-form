@@ -93,7 +93,21 @@
  *
  * Using native elements:
  * You can use native elements by specifying a &quot;String&quot; to &#x60;component&#x60;.
- * Some native elements can use innerHTML, innerText or children, by setting the property: &#x60;innerHTML&#x60;, &#x60;innerText&#x60; or &#x60;children.
+ * Some native elements can use innerHTML, innerText or children, by setting the property: &#x60;innerHTML&#x60;, &#x60;innerText&#x60; or &#x60;children&#x60;.
+ *
+ * Valid properties are:
+ *
+ * * type
+ * * items
+ * * label
+ * * labelClass
+ * * labelAfterComponent
+ * * rowClass
+ * * component
+ * * props
+ * * innerHTML
+ * * innerText
+ * * children
  *
  * @example
  * items = [
@@ -104,7 +118,7 @@
  *             {component: Input, props: {value: &#x27;Clinton&#x27;}, label: &quot;name&quot;}
  *         ],
  *         [ // column 2
- *             {component: Input, props: {value: &#x27;Clinton&#x27;}, label: &quot;name&quot;}
+ *             {component: Input, props: {value: &#x27;Clinton&#x27;}, label: &quot;name&quot;, labelClass: &quot;red&quot;}
  *         ]
  *     ]
  * ];
@@ -143,271 +157,265 @@
  * @since 0.0.1
 */
 
-&#x27;use strict&#x27;;
+&quot;use strict&quot;;
 
-require(&#x27;itsa-jsext/lib/object&#x27;);
+require(&quot;itsa-jsext&quot;);
+require(&quot;itsa-dom&quot;);
 
-const React = require(&#x27;react&#x27;),
-    PropTypes = React.PropTypes,
-    FocusContainer = require(&#x27;itsa-react-focuscontainer&#x27;),
-    MAIN_CLASS = &#x27;itsa-form&#x27;,
-    WARNING_COLUMN_ARRAY = &#x27;Form-columns should have an array-item for each column&#x27;;
+const React = require(&quot;react&quot;),
+    ReactDOM = require(&quot;react-dom&quot;),
+    PropTypes = require(&quot;prop-types&quot;),
+    FocusContainer = require(&quot;itsa-react-focuscontainer&quot;),
+    MAIN_CLASS = &quot;itsa-form&quot;,
+    WARNING_COLUMN_ARRAY = &quot;Form-columns should have an array-item for each column&quot;;
 
-const Form = React.createClass({
+class Form extends React.Component {
+    constructor(props) {
+        super(props);
+        const instance = this;
+        instance.createFormCols = instance.createFormCols.bind(instance);
+        instance.createFormElement = instance.createFormElement.bind(instance);
+        instance.createFormRow = instance.createFormRow.bind(instance);
+        instance.createFormFieldset = instance.createFormFieldset.bind(instance);
+        instance.focusActiveElement = instance.focusActiveElement.bind(instance);
+        instance.focusElement = instance.focusElement.bind(instance);
+        instance.handleClick = instance.handleClick.bind(instance);
+        instance._create1Col = instance._create1Col.bind(instance);
+        instance._create2Cols = instance._create2Cols.bind(instance);
+        instance._create3Cols = instance._create3Cols.bind(instance);
+        instance._create4Cols = instance._create4Cols.bind(instance);
+        instance._processItems = instance._processItems.bind(instance);
+    }
 
-    propTypes: {
-        /**
-         * The Component its children
-         *
-         * @property children
-         * @type Object || Array
-         * @since 15.0.0
-        */
-        children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    /**
+     * componentDidMount will set an eventlistener to the &#x60;app:passwordresetrequest&#x60;-event
+     *
+     * @method componentDidMount
+     * @since 15.0.0
+     */
+    componentDidMount() {
+        const instance = this;
+        instance._domNode = ReactDOM.findDOMNode(instance);
+    }
 
-        /**
-         * The classname for the container
-         *
-         * @property className
-         * @type String
-         * @since 15.0.0
-        */
-        className: PropTypes.string,
+    /**
+     * React render-method --&gt; renders the Component.
+     *
+     * @method createFormCols
+     * @return ReactComponents
+     * @since 2.0.0
+     */
+    createFormCols(cols, i) {
+        let formCol;
+        const instance = this,
+            len = cols.length;
+        if (len===1) {
+            formCol = instance._create1Col(cols, i);
+        }
+        else if (len===2) {
+            formCol = instance._create2Cols(cols, i);
+        }
+        else if (len===3) {
+            formCol = instance._create3Cols(cols, i);
+        }
+        else if (len===4) {
+            formCol = instance._create4Cols(cols, i);
+        }
+        if (len&gt;4) {
+            console.warn(&quot;Form cannot create more than 4 columns (trying to create &quot;+len+&quot; columns)&quot;);
+        }
+        return formCol;
+    }
 
-        /**
-         * Whether the focuscontainer is disabled (doesn&#x27;t response to focusevents)
-         *
-         * @property disabled
-         * @type Boolean
-         * @since 15.0.0
-        */
-        disabled: PropTypes.bool,
+    /**
+     * React render-method --&gt; renders the Component.
+     *
+     * @method createFormElement
+     * @return ReactComponent
+     * @since 2.0.0
+     */
+    createFormElement(item, i, inlineDiv) {
+        let label = item.label,
+            classname = &quot;itsa-formelement-&quot;+ (item.props.name || &quot;undefined-name&quot;),
+            childrenArray, innerHTML, component, Component, style, key, bkp;
+        const thisProps = this.props,
+            contextItemFns = thisProps.contextItemFns,
+            itemComponent = item.component,
+            itemProps = item.props,
+            props = itemProps.itsa_deepClone(),
+            innerText = itemProps.innerText,
+            children = itemProps.children,
+            itemInnerHTML = itemProps.innerHTML;
+        delete props.innerText;
+        delete props.children;
+        (typeof props.disabled===&quot;boolean&quot;) || (props.disabled=thisProps.disabled);
+        if (label!==undefined) {
+            label = &lt;label className={item.labelClass} htmlFor={props.name}&gt;{label}&lt;/label&gt;;
+        }
+        if (itemInnerHTML) {
+            innerHTML = {__html: itemInnerHTML};
+        }
+        // if we have a different &#x60;context&#x60; for the callbacks, then bind them:
+        if (contextItemFns) {
+            props.itsa_each((val, prop) =&gt; {
+                (typeof val===&quot;function&quot;) &amp;&amp; (props[prop]=val.bind(contextItemFns));
+            });
+        }
 
-        /**
-         * Whether a click on the container (outside its elements,
-         * should lead into focussing the container
-         *
-         * @property focusOnContainerClick
-         * @default false
-         * @type Boolean
-         * @since 15.0.10
-        */
-        focusOnContainerClick: PropTypes.bool,
+        if (typeof itemComponent===&quot;string&quot;) {
+            if (innerText) {
+                childrenArray = [];
+                innerText &amp;&amp; childrenArray.push(innerText);
+                children &amp;&amp; Array.prototype.push.apply(childrenArray, children);
+            }
+            else if (innerHTML) {
+                props.dangerouslySetInnerHTML = innerHTML;
+                delete props.innerHTML;
+            }
+            component = React.createElement(itemComponent, props, childrenArray);
+        }
+        else {
+            Component = itemComponent;
+            component = (
+                &lt;Component {...props} &gt;
+                    {innerText}
+                    {children}
+                &lt;/Component&gt;
+            );
+        }
+        if (inlineDiv) {
+            style={display: &quot;inline-block&quot;};
+        }
+        else {
+            classname += &quot; pure-control-group&quot;;
+        }
+        key = (item.key!==undefined) ? item.key : i;
+        if (item.labelAfterComponent) {
+            bkp = label;
+            label = component;
+            component = bkp;
+        }
+        return (
+            &lt;div className={classname} key={key} style={style}&gt;
+                {label}
+                {component}
+            &lt;/div&gt;
+        );
+    }
 
-        /**
-         * A &#x60;selector&#x60; or &#x60;index&#x60; of the focussable items that should get the initial focus.
-         * In case of a selector, it might return multiple nodes: the one that is being used
-         * is determined by
-         *
-         * @property initialFocus
-         * @type String|Number
-         * @since 15.0.0
-        */
-        initialFocus: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    /**
+     * React render-method --&gt; renders the Component.
+     *
+     * @method createFormRow
+     * @return [ReactComponent]
+     * @since 2.0.0
+     */
+    createFormRow(item, i, isFullRow) {
+        let props = item.itsa_deepClone(),
+            rowItems = [],
+            classname;
+        delete props.items;
+        item.items.forEach((item, i) =&gt; rowItems.push(this.createFormElement(item, i, true)));
+        classname = isFullRow ? &quot;pure-control-group&quot; : &quot;pure-controls&quot;;
+        delete props.className;
+        if (item.rowClass) {
+            classname += &quot; &quot;+item.rowClass;
+            delete props.rowClass;
+        }
+        return (
+            &lt;div {...props} className={classname} key={i}&gt;{rowItems}&lt;/div&gt;
+        );
+    }
 
-        /**
-         * In case &#x60;initialFocus&#x60; is a selector, it might return multiple nodes: the one that is being used.
-         * In case of &quot;last&quot;, it will return the last node.
-         *
-         * @property initialFocusIndex
-         * @type Number|&quot;last&quot;
-         * @default 0
-         * @since 15.0.0
-        */
-        initialFocusIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    /**
+     * React render-method --&gt; renders the Component.
+     *
+     * @method createFormRow
+     * @return [ReactComponent]
+     * @since 2.0.0
+     */
+    createFormFieldset(item, i) {
+        let props = item.itsa_deepClone();
+        const fieldsetItems = this._processItems(item.items);
+        delete props.items;
+        return (
+            &lt;fieldset {...props} key={i}&gt;{fieldsetItems}&lt;/fieldset&gt;
+        );
+    }
 
-        /**
-         * The list of the items that should be rendered. Each item consist of an object like this:
-         * {component: ReactComponent, props: this.props, label: &quot;mylabel&quot;},
-         * where the label is optional.
-         *
-         * If an item is an array, then this row will become devided in the number of columns that equal the array-size.
-         * Inside the array, there should be ONLY array-items, defining the content of the column,
-         *
-         * Using native elements:
-         * You can use native elements by specifying a &quot;String&quot; to &#x60;component&#x60;.
-         * Some native elements can use innerHTML, innerText or children, by setting the property: &#x60;innerHTML&#x60;, &#x60;innerText&#x60; or &#x60;children.
-         *
-         * @example
-         * items = [
-         *     {component: &#x27;legend&#x27;, innerHTML: &#x27;&lt;b&gt;Beautiful&lt;/b&gt; items&#x27;},
-         *     {component: Input, props: {value: &#x27;Clinton&#x27;}, label: &quot;name&quot;, children: []},
-         *     [
-         *         [ // column 1
-         *             {component: Input, props: {value: &#x27;Clinton&#x27;}, label: &quot;name&quot;}
-         *         ],
-         *         [ // column 2
-         *             {component: Input, props: {value: &#x27;Clinton&#x27;}, label: &quot;name&quot;}
-         *         ]
-         *     ]
-         * ];
-         *
-         * A special purpose would be to have multiple items in the same row or inside a fieldset. To achieve this, define the type as
-         * &quot;row&quot;, &quot;control-row&quot; or &quot;fieldset&quot; (String) as well as the property &#x60;items&#x60;.
-         * @example
-         * items = [
-         *     {component: Input, props: {value: &#x27;Clinton&#x27;}, label: &quot;name&quot;},
-         *     [
-         *         [ // column 1
-         *             {component: Input, props: {value: &#x27;Clinton&#x27;}, label: &quot;name&quot;}
-         *         ],
-         *         [ // column 2
-         *             {component: Input, props: {value: &#x27;Clinton&#x27;}, label: &quot;name&quot;}
-         *         ]
-         *     ],
-         *     {
-         *         type: &quot;fieldset&quot;,
-         *         items: [
-         *             {component: Button, props: {buttonText: &#x27;cancel&#x27;}},
-         *             {component: Button, props: {buttonText: &#x27;save&#x27;}}
-         *         ]
-         *     },
-         *     {
-         *         type: &quot;row&quot;,
-         *         items: [
-         *             {component: Button, props: {buttonText: &#x27;cancel&#x27;}},
-         *             {component: Button, props: {buttonText: &#x27;save&#x27;}}
-         *         ]
-         *     }
-         * ];
-         *
-         * @property items
-         * @type Array
-         * @default 0
-         * @since 15.0.0
-        */
-        items: PropTypes.array,
+    /**
+     * Sets the focus on the active Element of the Form.
+     *
+     * @method focusActiveElement
+     * @chainable
+     * @since 0.0.1
+     */
+    focusActiveElement() {
+        this._domNode._itsa_focuscontainer.focusActiveElement();
+        return this;
+    }
 
-        /**
-         * What key/keys are responsible for re-focussing &#x60;down&#x60;. Valid values are charcodes possible prepende with
-         * a special key: 9 or &#x60;shift+9&#x60; or &#x60;ctrl+shift+9&#x60;. Multiple key combinations can be defined bydefining an array of keyDown-values.
-         *
-         * @property keyDown
-         * @default 9
-         * @type String|number|Array
-         * @since 15.0.0
-        */
-        keyDown: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array]),
+    /**
+     * Sets the focus on the specified Element of the Form.
+     *
+     * @method focusElement
+     * @param index {Number} the index of the item to be focussed
+     * @chainable
+     * @since 0.0.1
+     */
+    focusElement(index) {
+        this._domNode._itsa_focuscontainer.focusActiveElement(index);
+        return this;
+    }
 
-        /**
-         * Whenever &#x60;keyEnter&#x60; is set, then the focus-container will become a &#x60;nested&#x60;- focuscontainer.
-         * Nested focuscontainers will automaticcaly become focussable by their parent-container.
-         *
-         * The &#x60;keyEnter&#x60; determines what key/keys are responsible for &#x60;entering&#x60; this container. Valid values are charcodes possible prepende with
-         * a special key: 39 or &#x60;shift+39&#x60; or &#x60;ctrl+shift+39&#x60;. Multiple key combinations can be defined bydefining an array of keyUp-values.
-         *
-         * @property keyEnter
-         * @type String|number|Array
-         * @since 15.0.0
-        */
-        keyEnter: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array]),
+    handleClick(e) {
+        let type, buttonNode,
+            node = e.target;
+        const instance = this,
+            props = instance.props,
+            onReset = props.onReset,
+            onSubmit = props.onSubmit;
 
-        /**
-         * The &#x60;keyLeave&#x60; determines what key/keys are responsible for &#x60;leaving&#x60; this container and go to the parent focus-container.
-         * Valid values are charcodes possible prepende with
-         * a special key: 39 or &#x60;shift+39&#x60; or &#x60;ctrl+shift+39&#x60;. Multiple key combinations can be defined bydefining an array of keyUp-values.
-         *
-         * @property keyLeave
-         * @default 27
-         * @type String|number|Array
-         * @since 15.0.0
-        */
-        keyLeave: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array]),
+        if (node.tagName!==&quot;BUTTON&quot;) {
+            buttonNode = node.itsa_inside(&quot;button&quot;);
+            buttonNode &amp;&amp; (node=buttonNode);
+        }
+        type = node.getAttribute(&quot;type&quot;);
+        if (type===&quot;reset&quot;) {
+            onReset &amp;&amp; onReset(e);
+        }
+        else if (type===&quot;submit&quot;) {
+            onSubmit &amp;&amp; onSubmit(e);
+        }
+    }
 
-        /**
-         * What key/keys are responsible for re-focussing &#x60;up&#x60;. Valid values are charcodes possible prepended with
-         * a special key: 9 or &#x60;shift+9&#x60; or &#x60;ctrl+shift+9&#x60;. Multiple key combinations can be defined bydefining an array of keyUp-values.
-         *
-         * @property keyUp
-         * @default &quot;shift+9&quot;
-         * @type String|number|Array
-         * @since 15.0.0
-        */
-        keyUp: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array]),
-
-        /**
-         * Whether the loop the focus when the last/first item is reached.
-         *
-         * @property loop
-         * @default true
-         * @type Boolean
-         * @since 15.0.0
-        */
-        loop: PropTypes.bool,
-
-        /**
-         * Callback for when the component did mount.
-         *
-         * @property onMount
-         * @type Function
-         * @since 15.0.8
-        */
-        onMount: PropTypes.func,
-
-        /**
-         * Callback whenever the forms needs to submit (button[type=&quot;submit&quot;] gets pressed)
-         *
-         * @property onClick
-         * @type Function
-         * @since 0.0.1
-        */
-        onSubmit: PropTypes.func,
-
-        /**
-         * Callback whenever the forms needs to submit (button[type=&quot;reset&quot;] gets pressed)
-         *
-         * @property onClick
-         * @type Function
-         * @since 0.0.1
-        */
-        onReset: PropTypes.func,
-
-        /**
-         * Whether to focus on the next item whenever a &#x60;enter&#x60; is pressed on an input-element.
-         *
-         * @property refocusOnEnterInput
-         * @default true
-         * @type Boolean
-         * @since 15.0.0
-        */
-        refocusOnEnterInput: PropTypes.bool,
-
-        /**
-         * Selector on which the focusmanager should check against when refocussing
-         *
-         * @property selector
-         * @type String
-         * @since 15.0.0
-        */
-        selector: PropTypes.string,
-
-        /**
-         * Inline styles for the focus-container
-         *
-         * @property style
-         * @type Object
-         * @since 15.0.0
-        */
-        style: PropTypes.object,
-
-        /**
-         * The tabIndex
-         *
-         * @property tabIndex
-         * @type Number
-         * @since 0.0.1
-        */
-        tabIndex: PropTypes.number,
-
-        /**
-         * The transition-time when the window needs to be scrolled in order to get the focussable node into the view.
-         *
-         * @property transitionTime
-         * @type Number
-         * @since 15.0.0
-        */
-        transitionTime: PropTypes.number
-    },
+    /**
+     * React render-method --&gt; renders the Component.
+     *
+     * @method render
+     * @return ReactComponents
+     * @since 2.0.0
+     */
+    render() {
+        let classname = MAIN_CLASS,
+            handleClick;
+        const instance = this,
+            props = instance.props,
+            items = instance._processItems(props.items),
+            propsClassname = props.className;
+        propsClassname &amp;&amp; (classname+=&quot; &quot;+propsClassname);
+        if (props.onSubmit || props.onReset) {
+            handleClick = instance.handleClick;
+        }
+        return (
+            &lt;FocusContainer
+                {...props}
+                className={classname}
+                onClick={handleClick} &gt;
+                {items}
+            &lt;/FocusContainer&gt;
+        );
+    }
 
     /**
      * React render-method --&gt; renders the Component.
@@ -431,7 +439,7 @@ const Form = React.createClass({
                 &lt;/div&gt;
            );
         }
-    },
+    }
 
     /**
      * React render-method --&gt; renders the Component.
@@ -458,7 +466,7 @@ const Form = React.createClass({
                 &lt;/div&gt;
            );
         }
-    },
+    }
 
     /**
      * React render-method --&gt; renders the Component.
@@ -488,7 +496,7 @@ const Form = React.createClass({
                 &lt;/div&gt;
            );
         }
-    },
+    }
 
     /**
      * React render-method --&gt; renders the Component.
@@ -521,7 +529,7 @@ const Form = React.createClass({
                 &lt;/div&gt;
            );
         }
-    },
+    }
 
     _processItems(items) {
         let newItems = [];
@@ -533,11 +541,11 @@ const Form = React.createClass({
             }
             else {
                 // found an object
-                if ((item.type===&#x27;row&#x27;) || (item.type===&#x27;control-row&#x27;)) {
+                if ((item.type===&quot;row&quot;) || (item.type===&quot;control-row&quot;)) {
                     // create a row with items
-                    newItems.push(instance.createFormRow(item, i, (item.type===&#x27;row&#x27;)));
+                    newItems.push(instance.createFormRow(item, i, (item.type===&quot;row&quot;)));
                 }
-                else if (item.type===&#x27;fieldset&#x27;) {
+                else if (item.type===&quot;fieldset&quot;) {
                     // create a row with items
                     newItems.push(instance.createFormFieldset(item, i));
                 }
@@ -548,186 +556,298 @@ const Form = React.createClass({
             }
         });
         return newItems;
-    },
-
-    /**
-     * React render-method --&gt; renders the Component.
-     *
-     * @method createFormCols
-     * @return ReactComponents
-     * @since 2.0.0
-     */
-    createFormCols(cols, i) {
-        let formCol;
-        const instance = this,
-            len = cols.length;
-        if (len===1) {
-            formCol = instance._create1Col(cols, i);
-        }
-        else if (len===2) {
-            formCol = instance._create2Cols(cols, i);
-        }
-        else if (len===3) {
-            formCol = instance._create3Cols(cols, i);
-        }
-        else if (len===4) {
-            formCol = instance._create4Cols(cols, i);
-        }
-        if (len&gt;4) {
-            console.warn(&#x27;Form cannot create more than 4 columns (trying to create &#x27;+len+&#x27; columns)&#x27;);
-        }
-        return formCol;
-    },
-
-    /**
-     * React render-method --&gt; renders the Component.
-     *
-     * @method createFormElement
-     * @return ReactComponent
-     * @since 2.0.0
-     */
-    createFormElement(item, i) {
-        let childrenArray, label, innerHTML, component, Component;
-        const propsLabel = item.label,
-            itemComponent = item.component,
-            itemProps = item.props,
-            props = itemProps.itsa_deepClone(),
-            innerText = itemProps.innerText,
-            children = itemProps.children,
-            itemInnerHTML = item.innerHTML;
-        delete props.innerText;
-        delete props.children;
-        if (propsLabel!==undefined) {
-            label = &lt;label htmlFor={props.name}&gt;{propsLabel}&lt;/label&gt;;
-        }
-        if (itemInnerHTML) {
-            innerHTML = {__html: itemInnerHTML};
-        }
-
-        if (typeof itemComponent===&#x27;string&#x27;) {
-            childrenArray = [];
-            innerText &amp;&amp; childrenArray.push(innerText);
-            children &amp;&amp; Array.prototype.push.apply(childrenArray, children);
-            component = React.createElement(itemComponent, props, childrenArray);
-        }
-        else {
-            Component = itemComponent;
-            component = (
-                &lt;Component {...props} &gt;
-                    {innerText}
-                    {children}
-                &lt;/Component&gt;
-            );
-        }
-        return (
-            &lt;div className=&quot;pure-control-group&quot; dangerouslySetInnerHTML={innerHTML} key={i}&gt;
-                {propsLabel}
-                {component}
-            &lt;/div&gt;
-        );
-    },
-
-    /**
-     * React render-method --&gt; renders the Component.
-     *
-     * @method createFormRow
-     * @return [ReactComponent]
-     * @since 2.0.0
-     */
-    createFormRow(item, i, isFullRow) {
-        let props = item.itsa_deepClone(),
-            rowItems = [],
-            classname;
-        delete props.items;
-        item.items.forEach((item, i) =&gt; {
-            let props;
-            const Component = item.component,
-                itemProps = item.props,
-                innerText = itemProps.innerText,
-                children = itemProps.children;
-            if (Array.isArray(item)) {
-                console.warn(&#x27;Form-rows must exist of a list of elements: they cannot process an Array&#x27;);
-            }
-            else {
-                props = itemProps.itsa_deepClone();
-                delete props.innerText;
-                delete props.children;
-                rowItems.push((&lt;Component {...props} key={i} &gt;
-                    {innerText}
-                    {children}
-                &lt;/Component&gt;));
-            }
-        });
-        classname = isFullRow ? &#x27;pure-control-group&#x27; : &#x27;pure-controls&#x27;;
-        if (props.className) {
-            classname += &#x27; &#x27;+props.className;
-            delete props.className;
-        }
-        return (
-            &lt;div {...props} className={classname} key={i}&gt;{rowItems}&lt;/div&gt;
-        );
-    },
-
-    /**
-     * React render-method --&gt; renders the Component.
-     *
-     * @method createFormRow
-     * @return [ReactComponent]
-     * @since 2.0.0
-     */
-    createFormFieldset(item, i) {
-        let props = item.itsa_deepClone();
-        const fieldsetItems = this._processItems(item.items);
-        delete props.items;
-        return (
-            &lt;fieldset {...props} key={i}&gt;{fieldsetItems}&lt;/fieldset&gt;
-        );
-    },
-
-    handleClick(e) {
-        const instance = this,
-            node = e.target,
-            type = node.getAttribute(&#x27;type&#x27;),
-            props = instance.props,
-            onReset = props.onReset,
-            onSubmit = props.onSubmit;
-        if (type===&#x27;reset&#x27;) {
-            onReset &amp;&amp; onReset(e);
-        }
-        else if (type===&#x27;submit&#x27;) {
-            onSubmit &amp;&amp; onSubmit(e);
-        }
-    },
-
-    /**
-     * React render-method --&gt; renders the Component.
-     *
-     * @method render
-     * @return ReactComponents
-     * @since 2.0.0
-     */
-    render() {
-        let classname = MAIN_CLASS,
-            handleClick;
-        const instance = this,
-            props = instance.props,
-            items = instance._processItems(props.items),
-            propsClassname = props.className;
-        propsClassname &amp;&amp; (classname+=&#x27; &#x27;+propsClassname);
-        if (props.onSubmit || props.onReset) {
-            handleClick = instance.handleClick;
-        }
-        return (
-            &lt;FocusContainer
-                {...props}
-                className={classname}
-                onClick={handleClick} &gt;
-                {items}
-            &lt;/FocusContainer&gt;
-        );
     }
+}
 
-});
+Form.propTypes = {
+    /**
+     * The Component its children
+     *
+     * @property children
+     * @type String || Object || Array
+     * @since 15.0.0
+    */
+    children: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.array]),
+
+    /**
+     * The classname for the container
+     *
+     * @property className
+     * @type String
+     * @since 15.0.0
+    */
+    className: PropTypes.string,
+
+    /**
+     * The context for the callback-props of the items.
+     *
+     * @property contextItemFns
+     * @type Object
+     * @since 15.0.0
+    */
+    contextItemFns: PropTypes.object,
+
+    /**
+     * Whether the focuscontainer is disabled (doesn&#x27;t response to focusevents)
+     *
+     * @property disabled
+     * @type Boolean
+     * @since 15.0.0
+    */
+    disabled: PropTypes.bool,
+
+    /**
+     * Whether a click on the container (outside its elements,
+     * should lead into focussing the container
+     *
+     * @property focusOnContainerClick
+     * @default false
+     * @type Boolean
+     * @since 15.0.10
+    */
+    focusOnContainerClick: PropTypes.bool,
+
+    /**
+     * A &#x60;selector&#x60; or &#x60;index&#x60; of the focussable items that should get the initial focus.
+     * In case of a selector, it might return multiple nodes: the one that is being used
+     * is determined by
+     *
+     * @property initialFocus
+     * @type String|Number
+     * @since 15.0.0
+    */
+    initialFocus: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+    /**
+     * In case &#x60;initialFocus&#x60; is a selector, it might return multiple nodes: the one that is being used.
+     * In case of &quot;last&quot;, it will return the last node.
+     *
+     * @property initialFocusIndex
+     * @type Number|&quot;last&quot;
+     * @default 0
+     * @since 15.0.0
+    */
+    initialFocusIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+    /**
+     * The list of the items that should be rendered. Each item consist of an object like this:
+     * {component: ReactComponent, props: this.props, label: &quot;mylabel&quot;},
+     * where the label is optional.
+     *
+     * If an item is an array, then this row will become devided in the number of columns that equal the array-size.
+     * Inside the array, there should be ONLY array-items, defining the content of the column,
+     *
+     * Using native elements:
+     * You can use native elements by specifying a &quot;String&quot; to &#x60;component&#x60;.
+     * Some native elements can use innerHTML, innerText or children, by setting the property: &#x60;innerHTML&#x60;, &#x60;innerText&#x60; or &#x60;children&#x60;.
+     *
+     * Valid properties are:
+     *
+     * * type
+     * * items
+     * * label
+     * * labelClass
+     * * rowClass
+     * * component
+     * * props
+     * * innerHTML
+     * * innerText
+     * * children
+     *
+     * @example
+     * items = [
+     *     {component: &#x27;legend&#x27;, innerHTML: &#x27;&lt;b&gt;Beautiful&lt;/b&gt; items&#x27;},
+     *     {component: Input, props: {value: &#x27;Clinton&#x27;}, label: &quot;name&quot;, children: []},
+     *     [
+     *         [ // column 1
+     *             {component: Input, props: {value: &#x27;Clinton&#x27;}, label: &quot;name&quot;}
+     *         ],
+     *         [ // column 2
+     *             {component: Input, props: {value: &#x27;Clinton&#x27;}, label: &quot;name&quot;, labelClass: &quot;red&quot;}
+     *         ]
+     *     ]
+     * ];
+     *
+     * A special purpose would be to have multiple items in the same row or inside a fieldset. To achieve this, define the type as
+     * &quot;row&quot;, &quot;control-row&quot; or &quot;fieldset&quot; (String) as well as the property &#x60;items&#x60;.
+     * @example
+     * items = [
+     *     {component: Input, props: {value: &#x27;Clinton&#x27;}, label: &quot;name&quot;},
+     *     [
+     *         [ // column 1
+     *             {component: Input, props: {value: &#x27;Clinton&#x27;}, label: &quot;name&quot;}
+     *         ],
+     *         [ // column 2
+     *             {component: Input, props: {value: &#x27;Clinton&#x27;}, label: &quot;name&quot;}
+     *         ]
+     *     ],
+     *     {
+     *         type: &quot;fieldset&quot;,
+     *         items: [
+     *             {component: Button, props: {buttonText: &#x27;cancel&#x27;}},
+     *             {component: Button, props: {buttonText: &#x27;save&#x27;}}
+     *         ]
+     *     },
+     *     {
+     *         type: &quot;row&quot;,
+     *         items: [
+     *             {component: Button, props: {buttonText: &#x27;cancel&#x27;}},
+     *             {component: Button, props: {buttonText: &#x27;save&#x27;}}
+     *         ]
+     *     }
+     * ];
+     *
+     * @property items
+     * @type Array
+     * @default 0
+     * @since 15.0.0
+    */
+    items: PropTypes.array,
+
+    /**
+     * What key/keys are responsible for re-focussing &#x60;down&#x60;. Valid values are charcodes possible prepende with
+     * a special key: 9 or &#x60;shift+9&#x60; or &#x60;ctrl+shift+9&#x60;. Multiple key combinations can be defined bydefining an array of keyDown-values.
+     *
+     * @property keyDown
+     * @default 9
+     * @type String|number|Array
+     * @since 15.0.0
+    */
+    keyDown: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array]),
+
+    /**
+     * Whenever &#x60;keyEnter&#x60; is set, then the focus-container will become a &#x60;nested&#x60;- focuscontainer.
+     * Nested focuscontainers will automaticcaly become focussable by their parent-container.
+     *
+     * The &#x60;keyEnter&#x60; determines what key/keys are responsible for &#x60;entering&#x60; this container. Valid values are charcodes possible prepende with
+     * a special key: 39 or &#x60;shift+39&#x60; or &#x60;ctrl+shift+39&#x60;. Multiple key combinations can be defined bydefining an array of keyUp-values.
+     *
+     * @property keyEnter
+     * @type String|number|Array
+     * @since 15.0.0
+    */
+    keyEnter: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array]),
+
+    /**
+     * The &#x60;keyLeave&#x60; determines what key/keys are responsible for &#x60;leaving&#x60; this container and go to the parent focus-container.
+     * Valid values are charcodes possible prepende with
+     * a special key: 39 or &#x60;shift+39&#x60; or &#x60;ctrl+shift+39&#x60;. Multiple key combinations can be defined bydefining an array of keyUp-values.
+     *
+     * @property keyLeave
+     * @default 27
+     * @type String|number|Array
+     * @since 15.0.0
+    */
+    keyLeave: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array]),
+
+    /**
+     * What key/keys are responsible for re-focussing &#x60;up&#x60;. Valid values are charcodes possible prepended with
+     * a special key: 9 or &#x60;shift+9&#x60; or &#x60;ctrl+shift+9&#x60;. Multiple key combinations can be defined bydefining an array of keyUp-values.
+     *
+     * @property keyUp
+     * @default &quot;shift+9&quot;
+     * @type String|number|Array
+     * @since 15.0.0
+    */
+    keyUp: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array]),
+
+    /**
+     * Whether the loop the focus when the last/first item is reached.
+     *
+     * @property loop
+     * @default true
+     * @type Boolean
+     * @since 15.0.0
+    */
+    loop: PropTypes.bool,
+
+    /**
+     * Callback for when the component did mount.
+     *
+     * @property onMount
+     * @type Function
+     * @since 15.0.8
+    */
+    onMount: PropTypes.func,
+
+    /**
+     * Callback whenever the forms needs to submit (button[type=&quot;reset&quot;] gets pressed)
+     *
+     * @property onClick
+     * @type Function
+     * @since 0.0.1
+    */
+    onReset: PropTypes.func,
+
+    /**
+     * Callback whenever the forms needs to submit (button[type=&quot;submit&quot;] gets pressed)
+     *
+     * @property onClick
+     * @type Function
+     * @since 0.0.1
+    */
+    onSubmit: PropTypes.func,
+
+    /**
+     * Whether to focus on the next item whenever a &#x60;enter&#x60; is pressed on an input-element.
+     *
+     * @property refocusOnEnterInput
+     * @default true
+     * @type Boolean
+     * @since 15.0.0
+    */
+    refocusOnEnterInput: PropTypes.bool,
+
+    /**
+     * Whether the focussed item should be scrolled into the view when the focusselector focuses it.
+     *
+     * @property scrollIntoView
+     * @default true
+     * @type String
+     * @since 15.0.30
+    */
+    scrollIntoView: PropTypes.bool,
+
+    /**
+     * Selector on which the focusmanager should check against when refocussing
+     *
+     * @property selector
+     * @type String
+     * @since 15.0.0
+    */
+    selector: PropTypes.string,
+
+    /**
+     * Inline styles for the focus-container
+     *
+     * @property style
+     * @type Object
+     * @since 15.0.0
+    */
+    style: PropTypes.object,
+
+    /**
+     * The tabIndex
+     *
+     * @property tabIndex
+     * @type Number
+     * @since 0.0.1
+    */
+    tabIndex: PropTypes.number,
+
+    /**
+     * The transition-time when the window needs to be scrolled in order to get the focussable node into the view.
+     *
+     * @property transitionTime
+     * @type Number
+     * @since 15.0.0
+    */
+    transitionTime: PropTypes.number
+};
+
+Form.defaultProps = {
+    items: []
+};
 
 module.exports = Form;
 
