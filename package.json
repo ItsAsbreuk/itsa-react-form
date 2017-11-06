@@ -1,6 +1,6 @@
 {
   "name": "itsa-react-form",
-  "version": "16.0.0",
+  "version": "16.0.4",
   "description": "React Form which renders a focussable form based upon elements declared by props.items",
   "author": [
     {
@@ -31,9 +31,9 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "itsa-jsext": "^1.4.0",
     "itsa-dom": "^1.2.0",
-    "itsa-react-focuscontainer": "^16.0.0",
+    "itsa-jsext": "^1.4.0",
+    "itsa-react-focuscontainer": "^16.0.4",
     "prop-types": "^15.5.10"
   },
   "peerDependencies": {
@@ -52,11 +52,11 @@
     "eslint": "^4.0.0",
     "eslint-plugin-react": "^7.1.0",
     "istanbul": "^0.3.0",
-    "itsa-react-button": "^16.0.0",
-    "itsa-react-checkbox": "^16.0.0",
-    "itsa-react-input": "^16.0.0",
-    "itsa-react-maskedinput": "^16.0.0",
-    "itsa-react-textarea": "^16.0.0",
+    "itsa-react-button": "^16.0.6",
+    "itsa-react-checkbox": "^16.0.3",
+    "itsa-react-input": "^16.0.3",
+    "itsa-react-maskedinput": "^16.0.4",
+    "itsa-react-textarea": "^16.0.3",
     "jsdom": "^7.2.2",
     "jsdom-global": "^1.6.1",
     "jshint": "^2.5.5",

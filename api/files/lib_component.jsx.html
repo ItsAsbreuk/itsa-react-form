@@ -163,7 +163,6 @@ require(&quot;itsa-jsext&quot;);
 require(&quot;itsa-dom&quot;);
 
 const React = require(&quot;react&quot;),
-    ReactDOM = require(&quot;react-dom&quot;),
     PropTypes = require(&quot;prop-types&quot;),
     FocusContainer = require(&quot;itsa-react-focuscontainer&quot;),
     MAIN_CLASS = &quot;itsa-form&quot;,
@@ -185,17 +184,6 @@ class Form extends React.Component {
         instance._create3Cols = instance._create3Cols.bind(instance);
         instance._create4Cols = instance._create4Cols.bind(instance);
         instance._processItems = instance._processItems.bind(instance);
-    }
-
-    /**
-     * componentDidMount will set an eventlistener to the &#x60;app:passwordresetrequest&#x60;-event
-     *
-     * @method componentDidMount
-     * @since 15.0.0
-     */
-    componentDidMount() {
-        const instance = this;
-        instance._domNode = ReactDOM.findDOMNode(instance);
     }
 
     /**
@@ -411,7 +399,8 @@ class Form extends React.Component {
             &lt;FocusContainer
                 {...props}
                 className={classname}
-                onClick={handleClick} &gt;
+                onClick={handleClick}
+                ref={node =&gt; instance._domNode = node} &gt;
                 {items}
             &lt;/FocusContainer&gt;
         );

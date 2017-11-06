@@ -63,17 +63,7 @@
     "classitems": [
         {
             "file": "lib/component.jsx",
-            "line": 107,
-            "description": "componentDidMount will set an eventlistener to the `app:passwordresetrequest`-event",
-            "itemtype": "method",
-            "name": "componentDidMount",
-            "since": "15.0.0",
-            "class": "Form",
-            "module": "itsa-react-form"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 118,
+            "line": 106,
             "description": "React render-method --> renders the Component.",
             "itemtype": "method",
             "name": "createFormCols",
@@ -86,7 +76,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 147,
+            "line": 135,
             "description": "React render-method --> renders the Component.",
             "itemtype": "method",
             "name": "createFormElement",
@@ -99,7 +89,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 223,
+            "line": 211,
             "description": "React render-method --> renders the Component.",
             "itemtype": "method",
             "name": "createFormRow",
@@ -112,7 +102,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 247,
+            "line": 235,
             "description": "React render-method --> renders the Component.",
             "itemtype": "method",
             "name": "createFormRow",
@@ -125,7 +115,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 263,
+            "line": 251,
             "description": "Sets the focus on the active Element of the Form.",
             "itemtype": "method",
             "name": "focusActiveElement",
@@ -136,7 +126,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 275,
+            "line": 263,
             "description": "Sets the focus on the specified Element of the Form.",
             "itemtype": "method",
             "name": "focusElement",
@@ -154,7 +144,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 309,
+            "line": 297,
             "description": "React render-method --> renders the Component.",
             "itemtype": "method",
             "name": "render",
@@ -167,7 +157,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 337,
+            "line": 326,
             "description": "React render-method --> renders the Component.",
             "itemtype": "method",
             "name": "createFormCols",
@@ -180,7 +170,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 361,
+            "line": 350,
             "description": "React render-method --> renders the Component.",
             "itemtype": "method",
             "name": "createFormCols",
@@ -193,7 +183,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 388,
+            "line": 377,
             "description": "React render-method --> renders the Component.",
             "itemtype": "method",
             "name": "createFormCols",
@@ -206,7 +196,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 418,
+            "line": 407,
             "description": "React render-method --> renders the Component.",
             "itemtype": "method",
             "name": "createFormCols",
@@ -219,7 +209,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 480,
+            "line": 469,
             "description": "The Component its children",
             "itemtype": "property",
             "name": "children",
@@ -230,7 +220,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 489,
+            "line": 478,
             "description": "The classname for the container",
             "itemtype": "property",
             "name": "className",
@@ -241,7 +231,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 498,
+            "line": 487,
             "description": "The context for the callback-props of the items.",
             "itemtype": "property",
             "name": "contextItemFns",
@@ -252,7 +242,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 507,
+            "line": 496,
             "description": "Whether the focuscontainer is disabled (doesn't response to focusevents)",
             "itemtype": "property",
             "name": "disabled",
@@ -263,7 +253,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 516,
+            "line": 505,
             "description": "Whether a click on the container (outside its elements,\nshould lead into focussing the container",
             "itemtype": "property",
             "name": "focusOnContainerClick",
@@ -275,7 +265,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 527,
+            "line": 516,
             "description": "A `selector` or `index` of the focussable items that should get the initial focus.\nIn case of a selector, it might return multiple nodes: the one that is being used\nis determined by",
             "itemtype": "property",
             "name": "initialFocus",
@@ -286,7 +276,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 538,
+            "line": 527,
             "description": "In case `initialFocus` is a selector, it might return multiple nodes: the one that is being used.\nIn case of \"last\", it will return the last node.",
             "itemtype": "property",
             "name": "initialFocusIndex",
@@ -298,7 +288,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 549,
+            "line": 538,
             "description": "The list of the items that should be rendered. Each item consist of an object like this:\n{component: ReactComponent, props: this.props, label: \"mylabel\"},\nwhere the label is optional.\n\nIf an item is an array, then this row will become devided in the number of columns that equal the array-size.\nInside the array, there should be ONLY array-items, defining the content of the column,\n\nUsing native elements:\nYou can use native elements by specifying a \"String\" to `component`.\nSome native elements can use innerHTML, innerText or children, by setting the property: `innerHTML`, `innerText` or `children`.\n\nValid properties are:\n\n* type\n* items\n* label\n* labelClass\n* rowClass\n* component\n* props\n* innerHTML\n* innerText\n* children",
             "example": [
                 "\nitems = [\n    {component: 'legend', innerHTML: '<b>Beautiful</b> items'},\n    {component: Input, props: {value: 'Clinton'}, label: \"name\", children: []},\n    [\n        [ // column 1\n            {component: Input, props: {value: 'Clinton'}, label: \"name\"}\n        ],\n        [ // column 2\n            {component: Input, props: {value: 'Clinton'}, label: \"name\", labelClass: \"red\"}\n        ]\n    ]\n];\n\nA special purpose would be to have multiple items in the same row or inside a fieldset. To achieve this, define the type as\n\"row\", \"control-row\" or \"fieldset\" (String) as well as the property `items`.",
@@ -314,7 +304,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 624,
+            "line": 613,
             "description": "What key/keys are responsible for re-focussing `down`. Valid values are charcodes possible prepende with\na special key: 9 or `shift+9` or `ctrl+shift+9`. Multiple key combinations can be defined bydefining an array of keyDown-values.",
             "itemtype": "property",
             "name": "keyDown",
@@ -326,7 +316,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 635,
+            "line": 624,
             "description": "Whenever `keyEnter` is set, then the focus-container will become a `nested`- focuscontainer.\nNested focuscontainers will automaticcaly become focussable by their parent-container.\n\nThe `keyEnter` determines what key/keys are responsible for `entering` this container. Valid values are charcodes possible prepende with\na special key: 39 or `shift+39` or `ctrl+shift+39`. Multiple key combinations can be defined bydefining an array of keyUp-values.",
             "itemtype": "property",
             "name": "keyEnter",
@@ -337,7 +327,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 648,
+            "line": 637,
             "description": "The `keyLeave` determines what key/keys are responsible for `leaving` this container and go to the parent focus-container.\nValid values are charcodes possible prepende with\na special key: 39 or `shift+39` or `ctrl+shift+39`. Multiple key combinations can be defined bydefining an array of keyUp-values.",
             "itemtype": "property",
             "name": "keyLeave",
@@ -349,7 +339,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 660,
+            "line": 649,
             "description": "What key/keys are responsible for re-focussing `up`. Valid values are charcodes possible prepended with\na special key: 9 or `shift+9` or `ctrl+shift+9`. Multiple key combinations can be defined bydefining an array of keyUp-values.",
             "itemtype": "property",
             "name": "keyUp",
@@ -361,7 +351,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 671,
+            "line": 660,
             "description": "Whether the loop the focus when the last/first item is reached.",
             "itemtype": "property",
             "name": "loop",
@@ -373,7 +363,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 681,
+            "line": 670,
             "description": "Callback for when the component did mount.",
             "itemtype": "property",
             "name": "onMount",
@@ -384,7 +374,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 690,
+            "line": 679,
             "description": "Callback whenever the forms needs to submit (button[type=\"reset\"] gets pressed)",
             "itemtype": "property",
             "name": "onClick",
@@ -395,7 +385,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 699,
+            "line": 688,
             "description": "Callback whenever the forms needs to submit (button[type=\"submit\"] gets pressed)",
             "itemtype": "property",
             "name": "onClick",
@@ -406,7 +396,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 708,
+            "line": 697,
             "description": "Whether to focus on the next item whenever a `enter` is pressed on an input-element.",
             "itemtype": "property",
             "name": "refocusOnEnterInput",
@@ -418,7 +408,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 718,
+            "line": 707,
             "description": "Whether the focussed item should be scrolled into the view when the focusselector focuses it.",
             "itemtype": "property",
             "name": "scrollIntoView",
@@ -430,7 +420,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 728,
+            "line": 717,
             "description": "Selector on which the focusmanager should check against when refocussing",
             "itemtype": "property",
             "name": "selector",
@@ -441,7 +431,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 737,
+            "line": 726,
             "description": "Inline styles for the focus-container",
             "itemtype": "property",
             "name": "style",
@@ -452,7 +442,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 746,
+            "line": 735,
             "description": "The tabIndex",
             "itemtype": "property",
             "name": "tabIndex",
@@ -463,7 +453,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 755,
+            "line": 744,
             "description": "The transition-time when the window needs to be scrolled in order to get the focussable node into the view.",
             "itemtype": "property",
             "name": "transitionTime",
